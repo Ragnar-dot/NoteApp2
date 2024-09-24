@@ -1,0 +1,21 @@
+{
+    "@@locale": "en",
+    "appTitle": "Notes",
+    "newNote": "New Note",
+    "editNote": "Edit Note",
+    "deleteNote": "Delete Note",
+    "noteDeleted": "Note deleted",
+    "title": "Title",
+    "content": "Content",
+    "save": "Save",
+    "cancel": "Cancel",
+    "settings": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "pickReminder": "Pick Reminder",
+    "pleaseEnterTitle": "Please enter a title",
+    "reminderSet": "Reminder set for",
+    "speechNote": "Speech Note"
+  }

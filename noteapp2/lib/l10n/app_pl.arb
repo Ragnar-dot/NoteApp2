@@ -1,0 +1,21 @@
+{
+    "@@locale": "pl",
+    "appTitle": "Notatki",
+    "newNote": "Nowa Notatka",
+    "editNote": "Edytuj Notatkę",
+    "deleteNote": "Usuń Notatkę",
+    "noteDeleted": "Notatka usunięta",
+    "title": "Tytuł",
+    "content": "Treść",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "settings": "Ustawienia",
+    "language": "Język",
+    "theme": "Motyw",
+    "light": "Jasny",
+    "dark": "Ciemny",
+    "pickReminder": "Wybierz przypomnienie",
+    "pleaseEnterTitle": "Proszę wprowadzić tytuł",
+    "reminderSet": "Przypomnienie ustawione na",
+    "speechNote": "Sprachnotatka"
+  }

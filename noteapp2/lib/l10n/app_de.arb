@@ -1,0 +1,21 @@
+{
+    "@@locale": "de",
+    "appTitle": "Notizen",
+    "newNote": "Neue Notiz",
+    "editNote": "Notiz bearbeiten",
+    "deleteNote": "Notiz löschen",
+    "noteDeleted": "Notiz gelöscht",
+    "title": "Titel",
+    "content": "Inhalt",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "settings": "Einstellungen",
+    "language": "Sprache",
+    "theme": "Design",
+    "light": "Hell",
+    "dark": "Dunkel",
+    "pickReminder": "Erinnerung auswählen",
+    "pleaseEnterTitle": "Bitte einen Titel eingeben",
+    "reminderSet": "Erinnerung gesetzt auf",
+    "speechNote": "Sprachnotiz"
+  }
