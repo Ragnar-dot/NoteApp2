@@ -164,23 +164,29 @@ void _listen() async {
         actions: [
           IconButton(
             icon: Icon(Icons.alarm),
+            iconSize: 40,
+            padding: EdgeInsets.only(right: 19.0),
             onPressed: _pickReminderDate,
             tooltip: locale.pickReminder,
           ),
           IconButton(
             icon: Icon(_isListening ? Icons.mic : Icons.mic_none),
+            iconSize: 40,
+            padding: EdgeInsets.only(right: 19.0),
             onPressed: _listen,
             tooltip: locale.speechNote,
           ),
           IconButton(
-            icon: Icon(Icons.save),
+            icon: Icon(Icons.save_rounded),
+            iconSize: 40,
+            
             onPressed: _saveNote,
             tooltip: locale.save,
           ),
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(12.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -198,7 +204,7 @@ void _listen() async {
                   _title = value!;
                 },
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 16.0),
               Expanded(
                 child: TextFormField(
                   controller: _contentController,
