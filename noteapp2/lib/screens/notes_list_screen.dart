@@ -128,7 +128,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
                       decoration: note.isChecked
                           ? TextDecoration.lineThrough
                           : TextDecoration.none,
-                      color: isReminderDue ? Colors.red : Theme.of(context).primaryColor,
+                      color: isReminderDue ? Colors.red : null,
                     ),
                   ),
                   subtitle: Row(
@@ -146,7 +146,10 @@ class _NotesListScreenState extends State<NotesListScreen> {
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Icon(
                             Icons.alarm,
-                            color: isReminderDue ? Colors.red : Theme.of(context).primaryColor,
+                            color: isReminderDue ? Colors.red
+                             : Theme.of(context).brightness == Brightness.dark
+                                ? const Color.fromARGB(255, 141, 139, 139)
+                                : const Color.fromARGB(255, 141, 139, 139),
                           ),
                         ),
                     ],
