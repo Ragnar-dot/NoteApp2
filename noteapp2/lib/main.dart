@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
       child: Consumer2<ThemeProvider, LocaleProvider>(
         builder: (context, themeProvider, localeProvider, child) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,  // Entferne das Debug-Banner
             title: 'Notizen',
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),

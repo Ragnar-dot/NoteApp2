@@ -17,5 +17,6 @@
     "pickReminder": "Pick Reminder",
     "pleaseEnterTitle": "Please enter a title",
     "reminderSet": "Reminder set for",
-    "speechNote": "Speech Note"
+    "speechNote": "Speech Note",
+    "removeReminder": "Remove Reminder"
   }

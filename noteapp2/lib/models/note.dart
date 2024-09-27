@@ -26,4 +26,10 @@ class Note extends HiveObject {
     this.isChecked = false,
     this.reminderDate,
   });
+
+  /// Überprüft, ob die Erinnerung fällig ist oder bereits verstrichen ist.
+  bool isReminderDue() {
+    if (reminderDate == null) return false;
+    return DateTime.now().isAfter(reminderDate!);
+  }
 }

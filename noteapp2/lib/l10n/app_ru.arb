@@ -17,5 +17,6 @@
     "pickReminder": "Выберите напоминание",
     "pleaseEnterTitle": "Пожалуйста, введите заголовок",
     "reminderSet": "Напоминание установлено на",
-    "speechNote": "Спич-нотатка"
+    "speechNote": "Спич-нотатка",
+    "removeReminder": "Удалить напоминание"
   }
