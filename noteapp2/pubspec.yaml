@@ -1,7 +1,7 @@
-name: NoteApp
+name: Notes
 description: Eine moderne Notiz-App mit Flutter und Dart.
 
-publish_to: 'none' # Entferne dies, wenn du die App veröffentlichen möchtest
+
 
 version: 1.0.0+1
 
@@ -31,14 +31,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   generate: true
-  # Lokalisierungsoptionen
-  # Standardmäßig sucht Flutter im lib/l10n-Verzeichnis nach .arb-Dateien
-  # Du kannst diese Einstellungen anpassen, wenn nötig
-  # Beispiel:
-  # generate: true
-  # arb-dir: lib/l10n
-  # template-arb-file: app_en.arb
-  # output-localization-file: app_localizations.dart
+  arb-dir: lib/l10n
+  template-arb-file: app_en.arb
+  output-localization-file: app_localizations.dart
+
   assets:
     - lib/assets/
