@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Verschieben Sie die Berechtigungen hierher -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:label="noteapp2"
         android:name="${applicationName}"
@@ -20,8 +24,6 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
-                <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-                <uses-permission android:name="android.permission.INTERNET"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

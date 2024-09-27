@@ -69,7 +69,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
           IconButton(
             icon: Icon(Icons.settings),
             iconSize: 30,
-            color: const Color.fromARGB(255, 9, 159, 104),
+            color: const Color.fromARGB(255, 1, 177, 121),
             onPressed: () {
               // Navigate to settings screen
               Navigator.pushNamed(context, '/settings');
@@ -171,7 +171,8 @@ class _NotesListScreenState extends State<NotesListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         // Add new note button
-        backgroundColor: const Color.fromARGB(172, 0, 251, 159),
+        
+        backgroundColor: const Color.fromARGB(255, 0, 255, 162),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30), // Button rounding
         ),
@@ -181,7 +182,10 @@ class _NotesListScreenState extends State<NotesListScreen> {
             MaterialPageRoute(builder: (context) => NoteEditScreen()),
           );
         },
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add, size: 36.0,
+          color: Colors.black,
+          ),
         tooltip: AppLocalizations.of(context)!.newNote, // Optional tooltip
       ),
     );
