@@ -22,6 +22,7 @@ dependencies:
   flutter_local_notifications: ^17.2.2
   shared_preferences: ^2.0.15
   timezone: ^0.9.0 # Zeitzone für Benachrichtigungen
+  flutter_native_timezone: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -31,11 +32,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
   generate: true
-  arb-dir: lib/l10n
-  template-arb-file: app_en.arb
-  output-localization-file: app_localizations.dart
-
+  # Lokalisierungsoptionen
+  # Standardmäßig sucht Flutter im lib/l10n-Verzeichnis nach .arb-Dateien
+  # Du kannst diese Einstellungen anpassen, wenn nötig
+  # Beispiel:
+  # generate: true
+  # arb-dir: lib/l10n
+  # template-arb-file: app_en.arb
+  # output-localization-file: app_localizations.dart
+  
   assets:
     - lib/assets/

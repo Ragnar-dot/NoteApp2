@@ -1,4 +1,4 @@
-import 'dart:async'; // For Timer
+import 'dart:async'; // Für Timer
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +7,7 @@ import '../providers/note_provider.dart';
 import 'note_edit_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // ignore: unused_import
-import '../models/note.dart'; // Import the Note model
+import '../models/note.dart'; // Importiere das Note-Modell
 
 class NotesListScreen extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
   @override
   void initState() {
     super.initState();
-    // Update the UI every minute
+    // Aktualisiere die UI jede Minute
     _timer = Timer.periodic(Duration(minutes: 1), (timer) {
       setState(() {});
     });
@@ -39,7 +39,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
         backgroundColor: const Color.fromARGB(52, 150, 150, 150),
         title: Stack(
           children: [
-            // Outline
+            // Umrandung
             Text(
               AppLocalizations.of(context)!.appTitle,
               style: TextStyle(
@@ -49,10 +49,10 @@ class _NotesListScreenState extends State<NotesListScreen> {
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
                   ..strokeWidth = 6
-                  ..color = const Color.fromARGB(255, 73, 73, 73), // Outline color
+                  ..color = const Color.fromARGB(255, 73, 73, 73), // Farbe der Umrandung
               ),
             ),
-            // Inner text
+            // Innerer Text
             Text(
               AppLocalizations.of(context)!.appTitle,
               style: TextStyle(
@@ -71,7 +71,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
             iconSize: 30,
             color: const Color.fromARGB(255, 1, 177, 121),
             onPressed: () {
-              // Navigate to settings screen
+              // Navigiere zum Einstellungsbildschirm
               Navigator.pushNamed(context, '/settings');
             },
           ),
@@ -84,12 +84,18 @@ class _NotesListScreenState extends State<NotesListScreen> {
               child: Text(AppLocalizations.of(context)!.newNote),
             );
           }
-          return ListView.builder(
+          return ListView.separated(
             itemCount: noteProvider.notes.length,
+            separatorBuilder: (context, index) => Divider(
+              color: Colors.grey.withOpacity(0.5),
+              thickness: 1,
+              indent: 15,
+              endIndent: 15,
+            ),
             itemBuilder: (context, index) {
               final note = noteProvider.notes[index];
 
-              // Check if the reminder is due
+              // Überprüfen, ob die Erinnerung fällig ist
               final isReminderDue = note.isReminderDue();
 
               return Dismissible(
@@ -107,62 +113,52 @@ class _NotesListScreenState extends State<NotesListScreen> {
                   color: Colors.red,
                   child: Icon(Icons.delete, color: Colors.white),
                 ),
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: isReminderDue
-                        ? Colors.redAccent.withOpacity(0.2)
-                        : Colors.white.withOpacity(0.05),
-                    border: Border.all(color: Colors.grey.withOpacity(0.3)),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ListTile(
-                    leading: Checkbox(
-                      shape: CircleBorder(),
-                      activeColor: Color.fromARGB(172, 0, 251, 159),
-                      value: note.isChecked,
-                      onChanged: (value) {
-                        noteProvider.toggleCheck(note);
-                      },
-                    ),
-                    title: Text(
-                      note.title,
-                      style: TextStyle(
-                        decoration: note.isChecked
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                        color: isReminderDue ? Colors.red : null,
-                      ),
-                    ),
-                    subtitle: Row(
-                      children: [
-                        Text(
-                          DateFormat('dd.MM.yyyy – HH:mm').format(note.createdDate),
-                          style: TextStyle(
-                            decoration: note.isChecked
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                          ),
-                        ),
-                        if (note.reminderDate != null)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Icon(
-                              Icons.alarm,
-                              color: isReminderDue ? Colors.red : Theme.of(context).primaryColor,
-                            ),
-                          ),
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NoteEditScreen(note: note),
-                        ),
-                      );
+                child: ListTile(
+                  leading: Checkbox(
+                    shape: CircleBorder(),
+                    activeColor: Color.fromARGB(172, 0, 251, 159),
+                    value: note.isChecked,
+                    onChanged: (value) {
+                      noteProvider.toggleCheck(note);
                     },
                   ),
+                  title: Text(
+                    note.title,
+                    style: TextStyle(
+                      decoration: note.isChecked
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none,
+                      color: isReminderDue ? Colors.red : Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  subtitle: Row(
+                    children: [
+                      Text(
+                        DateFormat('dd.MM.yyyy – HH:mm').format(note.createdDate),
+                        style: TextStyle(
+                          decoration: note.isChecked
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
+                        ),
+                      ),
+                      if (note.reminderDate != null)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Icon(
+                            Icons.alarm,
+                            color: isReminderDue ? Colors.red : Theme.of(context).primaryColor,
+                          ),
+                        ),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NoteEditScreen(note: note),
+                      ),
+                    );
+                  },
                 ),
               );
             },
@@ -170,11 +166,11 @@ class _NotesListScreenState extends State<NotesListScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        // Add new note button
-        
+        // Neue Notiz hinzufügen Button
+
         backgroundColor: const Color.fromARGB(255, 0, 255, 162),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30), // Button rounding
+          borderRadius: BorderRadius.circular(30), // Rundung des Buttons
         ),
         onPressed: () {
           Navigator.push(
@@ -183,10 +179,11 @@ class _NotesListScreenState extends State<NotesListScreen> {
           );
         },
         child: Icon(
-          Icons.add, size: 36.0,
+          Icons.add,
+          size: 36.0,
           color: Colors.black,
-          ),
-        tooltip: AppLocalizations.of(context)!.newNote, // Optional tooltip
+        ),
+        tooltip: AppLocalizations.of(context)!.newNote, // Optionaler Tooltip
       ),
     );
   }

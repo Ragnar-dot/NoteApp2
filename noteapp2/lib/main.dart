@@ -12,6 +12,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart'; // Neues Paket importieren
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -25,14 +26,18 @@ void main() async {
   await Hive.openBox<Note>('notes');
 
   // Initialisiere Zeitzonen
-  tz.initializeTimeZones();
-  final String timeZoneName = tz.local.name;
-  tz.setLocalLocation(tz.getLocation(timeZoneName));
+  await _configureLocalTimeZone();
 
   // Initialisiere Benachrichtigungen
   await initializeNotifications();
 
   runApp(MyApp());
+}
+
+Future<void> _configureLocalTimeZone() async {
+  tz.initializeTimeZones();
+  final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
 }
 
 Future<void> initializeNotifications() async {
@@ -41,8 +46,11 @@ Future<void> initializeNotifications() async {
 
   final DarwinInitializationSettings initializationSettingsDarwin =
       DarwinInitializationSettings(
+    requestAlertPermission: true,
+    requestBadgePermission: true,
+    requestSoundPermission: true,
     onDidReceiveLocalNotification: (id, title, body, payload) async {
-      // Optional: Handle local notification received while app is in foreground (iOS/macOS)
+      // Optional: Lokale Benachrichtigung empfangen, während die App im Vordergrund ist (iOS/macOS)
     },
   );
 
@@ -55,7 +63,8 @@ Future<void> initializeNotifications() async {
   await flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
     onDidReceiveNotificationResponse: (NotificationResponse response) async {
-      // Optional: Handle notification tapped logic here
+      // Optional: Behandlung beim Antippen der Benachrichtigung
+      // Hier können Sie die Navigation zur entsprechenden Notiz hinzufügen
     },
   );
 }
@@ -72,7 +81,7 @@ class MyApp extends StatelessWidget {
       child: Consumer2<ThemeProvider, LocaleProvider>(
         builder: (context, themeProvider, localeProvider, child) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,  // Entferne das Debug-Banner
+            debugShowCheckedModeBanner: false,
             title: 'Notizen',
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),

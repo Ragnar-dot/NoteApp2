@@ -7,13 +7,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timezone/timezone.dart' as tz;
-import '../main.dart'; // Import main.dart for the notification instance
-
+import '../main.dart'; // Importiere main.dart für die Benachrichtigungsinstanz
+import 'package:hive/hive.dart';
 
 class NoteEditScreen extends StatefulWidget {
   final Note? note;
+  final int? noteId;
 
-  NoteEditScreen({this.note});
+  NoteEditScreen({this.note, this.noteId});
 
   @override
   _NoteEditScreenState createState() => _NoteEditScreenState();
@@ -27,15 +28,26 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
   TextEditingController _contentController = TextEditingController();
   DateTime? _selectedReminderDate;
 
+  Note? _note; // Lokale Variable für die Notiz
+
   @override
   void initState() {
     super.initState();
     _speech = stt.SpeechToText();
-    if (widget.note != null) {
-      _title = widget.note!.title;
-      _contentController.text = widget.note!.content;
-      if (widget.note!.reminderDate != null) {
-        _selectedReminderDate = widget.note!.reminderDate;
+
+    if (widget.noteId != null) {
+      // Notiz anhand der ID laden
+      final noteBox = Hive.box<Note>('notes');
+      _note = noteBox.get(widget.noteId);
+    } else {
+      _note = widget.note;
+    }
+
+    if (_note != null) {
+      _title = _note!.title;
+      _contentController.text = _note!.content;
+      if (_note!.reminderDate != null) {
+        _selectedReminderDate = _note!.reminderDate;
       }
     }
   }
@@ -49,14 +61,14 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
 
       await flutterLocalNotificationsPlugin.zonedSchedule(
         note.key.hashCode,
-        'Reminder: ${note.title}',
+        'Erinnerung: ${note.title}',
         note.content,
         scheduledNotificationDateTime,
-        const NotificationDetails(
+        NotificationDetails(
           android: AndroidNotificationDetails(
             'notes_channel_id',
-            'Notes Channel',
-            channelDescription: 'Channel for note reminders',
+            'Notizen Kanal',
+            channelDescription: 'Kanal für Notizerinnerungen',
             importance: Importance.max,
             priority: Priority.high,
             ticker: 'ticker',
@@ -66,10 +78,10 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.dateAndTime,
+        payload: note.key.toString(),
       );
     } else {
-      // Cancel the scheduled notification if no reminder is set
+      // Lösche die geplante Benachrichtigung, wenn keine Erinnerung gesetzt ist
       await flutterLocalNotificationsPlugin.cancel(note.key.hashCode);
     }
   }
@@ -103,7 +115,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
     DateTime now = DateTime.now();
     DateTime initialDate = _selectedReminderDate ?? now;
 
-    // Ensure initialDate is not before now
+    // Stelle sicher, dass initialDate nicht vor jetzt liegt
     if (initialDate.isBefore(now)) {
       initialDate = now;
     }
@@ -143,19 +155,18 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
     setState(() {
       _selectedReminderDate = null;
     });
-    // Cancel the scheduled notification if note exists
-    if (widget.note != null) {
-      await flutterLocalNotificationsPlugin.cancel(widget.note!.key.hashCode);
+    // Lösche die geplante Benachrichtigung, falls die Notiz existiert
+    if (_note != null) {
+      await flutterLocalNotificationsPlugin.cancel(_note!.key.hashCode);
     }
   }
 
   void _saveNote() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      final noteProvider =
-          Provider.of<NoteProvider>(context, listen: false);
-      if (widget.note == null) {
-        // Create a new note
+      final noteProvider = Provider.of<NoteProvider>(context, listen: false);
+      if (_note == null) {
+        // Erstelle eine neue Notiz
         final newNote = Note(
           title: _title,
           content: _contentController.text,
@@ -165,13 +176,13 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
         noteProvider.addNote(newNote);
         await _scheduleNotification(newNote);
       } else {
-        // Update existing note
-        widget.note!.title = _title;
-        widget.note!.content = _contentController.text;
-        widget.note!.reminderDate = _selectedReminderDate;
-        await widget.note!.save();
-        noteProvider.updateNote(widget.note!);
-        await _scheduleNotification(widget.note!);
+        // Aktualisiere bestehende Notiz
+        _note!.title = _title;
+        _note!.content = _contentController.text;
+        _note!.reminderDate = _selectedReminderDate;
+        await _note!.save();
+        noteProvider.updateNote(_note!);
+        await _scheduleNotification(_note!);
       }
       Navigator.pop(context);
     }
@@ -183,7 +194,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.note == null ? locale.newNote : locale.editNote),
+        title: Text(_note == null ? locale.newNote : locale.editNote),
         actions: [
           IconButton(
             icon: Icon(Icons.alarm),
@@ -235,29 +246,24 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                   expands: true,
                   keyboardType: TextInputType.multiline,
                   onSaved: (value) {
-                    // Content is already saved in the controller
+                    // Inhalt wird bereits im Controller gespeichert
                   },
                 ),
               ),
-            if (_selectedReminderDate != null)
+              if (_selectedReminderDate != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 12.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0), // Verschiebt den Text nach rechts
-                        child: Text(
-                          '${locale.reminderSet} ${DateFormat('dd.MM.yyyy – HH:mm').format(_selectedReminderDate!)}',
-                          style: TextStyle(color: const Color.fromARGB(255, 241, 3, 3)),
-                        ),
+                      Text(
+                        '${locale.reminderSet} ${DateFormat('dd.MM.yyyy – HH:mm').format(_selectedReminderDate!)}',
+                        style: TextStyle(color: Colors.red),
                       ),
                       IconButton(
-                        icon: Icon(Icons.close, color: const Color.fromARGB(255, 241, 3, 3)),
+                        icon: Icon(Icons.close, color: Colors.red),
                         onPressed: _removeReminder,
-                        tooltip: locale.removeReminder ?? 'Remove Reminder',
+                        tooltip: locale.removeReminder,
                       ),
-                    
                     ],
                   ),
                 ),
@@ -267,8 +273,4 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
       ),
     );
   }
-}
-
-extension on AppLocalizations {
-  get removeReminder => null;
 }
