@@ -36,7 +36,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(52, 150, 150, 150),
+        backgroundColor: const Color.fromARGB(52, 9, 9, 9),
         title: Stack(
           children: [
             // Umrandung
@@ -87,7 +87,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
           return ListView.separated(
             itemCount: noteProvider.notes.length,
             separatorBuilder: (context, index) => Divider(
-              color: Colors.grey.withOpacity(0.5),
+              color: const Color.fromARGB(255, 34, 255, 0).withOpacity(0.5),
               thickness: 1,
               indent: 15,
               endIndent: 15,
