@@ -146,7 +146,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
                         ),
                         if (note.reminderDate != null)
                           Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
+                            padding: const EdgeInsets.only(left: 135.0),
                             child: Icon(
                               Icons.alarm,
                               color: isReminderDue ? Colors.red : Theme.of(context).primaryColor,

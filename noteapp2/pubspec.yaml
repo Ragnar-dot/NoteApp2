@@ -22,6 +22,7 @@ dependencies:
   flutter_local_notifications: ^17.2.2
   shared_preferences: ^2.0.15
   timezone: ^0.9.0 # Zeitzone für Benachrichtigungen
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:

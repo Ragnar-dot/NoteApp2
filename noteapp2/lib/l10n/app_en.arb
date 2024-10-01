@@ -18,5 +18,21 @@
     "pleaseEnterTitle": "Please enter a title",
     "reminderSet": "Reminder set for",
     "speechNote": "Speech Note",
-    "removeReminder": "Remove Reminder"
+    "removeReminder": "Remove Reminder",
+  
+    "@permissionRequired": {
+      "description": "Title for the permission required dialog"
+    },
+    "permissionRequired": "Permission Required",
+  
+    "@exactAlarmPermissionExplanation": {
+      "description": "Explanation for exact alarm permission"
+    },
+    "exactAlarmPermissionExplanation": "To set exact reminders, please allow the app to schedule exact alarms in system settings.",
+  
+    "@openSettings": {
+      "description": "Button text for opening app settings"
+    },
+    "openSettings": "Open Settings"
   }
+  

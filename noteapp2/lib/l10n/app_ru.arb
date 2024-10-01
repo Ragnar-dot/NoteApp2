@@ -1,22 +1,37 @@
 {
-    "@@locale": "ru",
-    "appTitle": "Заметки",
-    "newNote": "Новая заметка",
-    "editNote": "Редактировать заметку",
-    "deleteNote": "Удалить заметку",
-    "noteDeleted": "Заметка удалена",
-    "title": "Заголовок",
-    "content": "Содержание",
-    "save": "Сохранить",
-    "cancel": "Отмена",
-    "settings": "Настройки",
-    "language": "Язык",
-    "theme": "Тема",
-    "light": "Светлая",
-    "dark": "Темная",
-    "pickReminder": "Выберите напоминание",
-    "pleaseEnterTitle": "Пожалуйста, введите заголовок",
-    "reminderSet": "Напоминание установлено на",
-    "speechNote": "Спич-нотатка",
-    "removeReminder": "Удалить напоминание"
-  }
+  "@@locale": "ru",
+  "appTitle": "Заметки",
+  "newNote": "Новая заметка",
+  "editNote": "Редактировать заметку",
+  "deleteNote": "Удалить заметку",
+  "noteDeleted": "Заметка удалена",
+  "title": "Название",
+  "content": "Содержание",
+  "save": "Сохранить",
+  "cancel": "Отмена",
+  "settings": "Настройки",
+  "language": "Язык",
+  "theme": "Тема",
+  "light": "Светлая",
+  "dark": "Тёмная",
+  "pickReminder": "Выбрать напоминание",
+  "pleaseEnterTitle": "Пожалуйста, введите название",
+  "reminderSet": "Напоминание установлено на",
+  "speechNote": "Голосовая заметка",
+  "removeReminder": "Удалить напоминание",
+
+  "@permissionRequired": {
+    "description": "Заголовок для диалога требования разрешения"
+  },
+  "permissionRequired": "Требуется разрешение",
+
+  "@exactAlarmPermissionExplanation": {
+    "description": "Объяснение для разрешения точных будильников"
+  },
+  "exactAlarmPermissionExplanation": "Чтобы установить точные напоминания, пожалуйста, разрешите приложению планировать точные будильники в системных настройках.",
+
+  "@openSettings": {
+    "description": "Текст кнопки для открытия настроек приложения"
+  },
+  "openSettings": "Открыть настройки"
+}
