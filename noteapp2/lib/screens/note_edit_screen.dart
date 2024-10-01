@@ -255,7 +255,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                       IconButton(
                         icon: Icon(Icons.close, color: const Color.fromARGB(255, 241, 3, 3)),
                         onPressed: _removeReminder,
-                        tooltip: locale.removeReminder ?? 'Remove Reminder',
+                        tooltip: locale.removeReminder,
                       ),
                     
                     ],
@@ -269,6 +269,3 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
   }
 }
 
-extension on AppLocalizations {
-  get removeReminder => null;
-}
