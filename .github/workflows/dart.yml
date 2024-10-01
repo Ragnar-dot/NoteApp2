@@ -16,6 +16,7 @@ jobs:
           architecture: x64
 
       - run: flutter pub get
+        working-directory: pupspec.yaml
         
 
       - run: pod repo update
