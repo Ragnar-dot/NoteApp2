@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../providers/note_provider.dart';
 import 'note_edit_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 // ignore: unused_import
 import '../models/note.dart'; // Import the Note model
 
@@ -149,7 +150,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
                             padding: const EdgeInsets.only(left: 135.0),
                             child: Icon(
                               Icons.alarm,
-                              color: isReminderDue ? Colors.red : Theme.of(context).primaryColor,
+                              color: isReminderDue ? Colors.red : Theme.of(context).primaryColorLight, // Alarm icon color
                             ),
                           ),
                       ],
