@@ -127,29 +127,27 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
       lastDate: DateTime(2100),
       helpText: locale.pickReminder,
     );
-    if (pickedDate != null) {
-      TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.fromDateTime(
-          _selectedReminderDate != null && _selectedReminderDate!.isAfter(now)
-              ? _selectedReminderDate!
-              : now,
-        ),
-        helpText: locale.pickReminder,
-      );
-      if (pickedTime != null) {
-        setState(() {
-          _selectedReminderDate = DateTime(
-            pickedDate.year,
-            pickedDate.month,
-            pickedDate.day,
-            pickedTime.hour,
-            pickedTime.minute,
-          );
-        });
-      }
+    TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(
+        _selectedReminderDate != null && _selectedReminderDate!.isAfter(now)
+            ? _selectedReminderDate!
+            : now,
+      ),
+      helpText: locale.pickReminder,
+    );
+    if (pickedDate != null && pickedTime != null) {
+      setState(() {
+        _selectedReminderDate = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+      });
     }
-  }
+    }
 
   void _removeReminder() async {
     setState(() {
@@ -198,6 +196,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.alarm),
+            color: Colors.red,
             iconSize: 40,
             padding: EdgeInsets.only(right: 19.0),
             onPressed: _pickReminderDate,
@@ -211,8 +210,9 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
             tooltip: locale.speechNote,
           ),
           IconButton(
-            icon: Icon(Icons.save_rounded),
-            iconSize: 40,
+            icon: Icon(Icons.save_as),
+            color: Colors.green,
+            iconSize: 50,
             onPressed: _saveNote,
             tooltip: locale.save,
           ),

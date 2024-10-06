@@ -69,7 +69,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
           IconButton(
             icon: Icon(Icons.settings),
             iconSize: 30,
-            color: const Color.fromARGB(255, 1, 177, 121),
+            color: const Color.fromARGB(255, 0, 255, 162),
             onPressed: () {
               // Navigiere zum Einstellungsbildschirm
               Navigator.pushNamed(context, '/settings');
@@ -89,8 +89,8 @@ class _NotesListScreenState extends State<NotesListScreen> {
             separatorBuilder: (context, index) => Divider(
               color: const Color.fromARGB(255, 34, 255, 0).withOpacity(0.5),
               thickness: 1,
-              indent: 15,
-              endIndent: 15,
+              indent: 30,
+              endIndent: 30,
             ),
             itemBuilder: (context, index) {
               final note = noteProvider.notes[index];
@@ -116,7 +116,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
                 child: ListTile(
                   leading: Checkbox(
                     shape: CircleBorder(),
-                    activeColor: Color.fromARGB(172, 0, 251, 159),
+                    activeColor: Color.fromARGB(172, 251, 8, 0),
                     value: note.isChecked,
                     onChanged: (value) {
                       noteProvider.toggleCheck(note);
@@ -143,7 +143,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
                       ),
                       if (note.reminderDate != null)
                         Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
+                          padding: const EdgeInsets.only(left: 140.0),
                           child: Icon(
                             Icons.alarm,
                             color: isReminderDue ? Colors.red

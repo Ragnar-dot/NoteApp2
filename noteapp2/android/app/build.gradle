@@ -7,8 +7,8 @@ plugins {
 
 android {
     namespace = "com.example.noteapp2"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 33 // Ersetze durch die gewünschte SDK-Version
+    ndkVersion = "21.3.6528147" // Falls benötigt, ansonsten entfernen
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -16,24 +16,21 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = "1.8"
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.noteapp2"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        minSdkVersion = 16
+        targetSdkVersion = 33
+        versionCode = 1
+        versionName = "1.0"
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            // TODO: Füge deine eigene Signierkonfiguration für den Release-Build hinzu.
+            // Aktuell wird mit dem Debug-Schlüssel signiert, damit `flutter run --release` funktioniert.
             signingConfig = signingConfigs.debug
         }
     }
