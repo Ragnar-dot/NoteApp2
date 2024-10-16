@@ -34,7 +34,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(171, 211, 207, 207),
+        backgroundColor: const Color.fromARGB(132, 211, 206, 206), // App bar color
         title: Stack(
           children: [
             // Outline
@@ -46,15 +46,16 @@ class _NotesListScreenState extends State<NotesListScreen> {
                 fontStyle: FontStyle.italic,
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
-                  ..strokeWidth = 8
-                  ..color = const Color.fromARGB(255, 134, 132, 132), // Outline color
+                  ..strokeWidth = 2
+            
+                  ..color = const Color.fromARGB(131, 0, 0, 0), // Outline color
               ),
             ),
             // Inner text
             Text(
               AppLocalizations.of(context)!.appTitle,
               style: TextStyle(
-                color: const Color.fromARGB(255, 0, 255, 0),
+                color: const Color.fromARGB(255, 241, 239, 239), // Text color
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
                 fontSize: 40,
@@ -65,9 +66,9 @@ class _NotesListScreenState extends State<NotesListScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.settings_display_rounded),
             iconSize: 30,
-            color: const Color.fromARGB(255, 2, 156, 72),
+            color: const Color.fromARGB(255, 0, 0, 0), // Icon color
             onPressed: () {
               // Navigate to settings screen
               Navigator.pushNamed(context, '/settings');
@@ -77,17 +78,17 @@ class _NotesListScreenState extends State<NotesListScreen> {
       ),
       body: Stack(
         children: [
-          // Hintergrundbild hinzufügen
+          // Add background image
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.jpeg'),// Pfad zum Hintergrundbild
-                fit: BoxFit.cover, // Füllt den gesamten Bildschirm
-                opacity: 0.3, // Bildtransparenz
+                image: AssetImage('assets/background.jpeg'), // Path to background image
+                fit: BoxFit.cover, // Fills the entire screen
+                opacity: 0.3, // Image transparency
               ),
             ),
           ),
-          // Inhalt der Seite über dem Hintergrundbild
+          // Page content over the background image
           Consumer<NoteProvider>(
             builder: (context, noteProvider, child) {
               if (noteProvider.notes.isEmpty) {
@@ -95,8 +96,12 @@ class _NotesListScreenState extends State<NotesListScreen> {
                   child: Text(AppLocalizations.of(context)!.newNote),
                 );
               }
-              return ListView.builder(
+              return ListView.separated(
                 itemCount: noteProvider.notes.length,
+                separatorBuilder: (context, index) => Divider(
+                  color: const Color.fromARGB(255, 112, 112, 112), // Color of the divider
+                  thickness: 1.0, // Thickness of the divider
+                ),
                 itemBuilder: (context, index) {
                   final note = noteProvider.notes[index];
 
@@ -115,15 +120,16 @@ class _NotesListScreenState extends State<NotesListScreen> {
                     background: Container(
                       alignment: Alignment.centerRight,
                       padding: EdgeInsets.symmetric(horizontal: 20),
-                      color: Colors.red,
+                      color: Colors.red, // Background color
                       child: Icon(Icons.delete, color: Colors.white), // Delete icon
                     ),
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 1, vertical: 0),
                       decoration: BoxDecoration(
                         color: isReminderDue
-                            ? Colors.redAccent.withOpacity(0.2)
-                            : const Color.fromARGB(3, 221, 216, 216).withOpacity(0.20),
+                            ? const Color.fromARGB(255, 145, 36, 36).withOpacity(0.3) 
+                            : const Color.fromARGB(0, 212, 212, 212).withOpacity(0.30), // Note background color
+                        // Note background color
                       ),
                       child: ListTile(
                         leading: Checkbox(
@@ -184,7 +190,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         // Add new note button
-        backgroundColor: const Color.fromARGB(255, 2, 206, 104),
+        backgroundColor: const Color.fromARGB(62, 0, 0, 0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30), // Button rounding
         ),
@@ -196,8 +202,8 @@ class _NotesListScreenState extends State<NotesListScreen> {
         },
         child: Icon(
           Icons.add,
-          size: 36.0,
-          color: Colors.black,
+          size: 50.0,
+          color: const Color.fromARGB(255, 255, 255, 255),
         ),
         tooltip: AppLocalizations.of(context)!.newNote, // Optional tooltip
       ),
