@@ -55,7 +55,7 @@ class _NotesListScreenState extends State<NotesListScreen> {
             Text(
               AppLocalizations.of(context)!.appTitle,
               style: TextStyle(
-                color: const Color.fromARGB(255, 241, 239, 239), // Text color
+                color: const Color.fromARGB(188, 241, 239, 239), // Text color
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
                 fontSize: 40,
@@ -124,11 +124,11 @@ class _NotesListScreenState extends State<NotesListScreen> {
                       child: Icon(Icons.delete, color: Colors.white), // Delete icon
                     ),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 1, vertical: 0),
+                      margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                       decoration: BoxDecoration(
                         color: isReminderDue
-                            ? const Color.fromARGB(255, 145, 36, 36).withOpacity(0.3) 
-                            : const Color.fromARGB(0, 212, 212, 212).withOpacity(0.30), // Note background color
+                            ? const Color.fromARGB(255, 145, 36, 36).withOpacity(0.4) 
+                            : const Color.fromARGB(136, 255, 255, 255).withOpacity(0.30), // Note background color
                         // Note background color
                       ),
                       child: ListTile(
