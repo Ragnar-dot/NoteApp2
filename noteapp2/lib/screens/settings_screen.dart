@@ -18,6 +18,7 @@ class SettingsScreen extends StatelessWidget {
         children: [
           SwitchListTile(
             title: Text(locale.theme),
+            
             subtitle: Text(themeProvider.themeMode == ThemeMode.dark
                 ? locale.dark
                 : locale.light),

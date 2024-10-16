@@ -238,6 +238,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
           IconButton(
             icon: Icon(Icons.alarm),
             iconSize: 40,
+            color: Colors.red,
             padding: EdgeInsets.only(right: 19.0),
             onPressed: _pickReminderDate,
             tooltip: locale.pickReminder,
@@ -250,8 +251,9 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
             tooltip: locale.speechNote,
           ),
           IconButton(
-            icon: Icon(Icons.save_rounded),
-            iconSize: 40,
+            icon: Icon(Icons.save_as),
+            iconSize: 50,
+            color: Colors.green,
             onPressed: _saveNote,
             tooltip: locale.save,
           ),
