@@ -2,19 +2,14 @@
 import 'dart:async'; // Für Timer
 
 =======
-import 'dart:async'; // For Timer
+// For Timer
 >>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-import '../providers/note_provider.dart';
-import 'note_edit_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 <<<<<<< HEAD
 // ignore: unused_import
 import '../models/note.dart'; // Importiere das Note-Modell
 =======
-import '../models/note.dart'; // Import the Note model
+// Import the Note model
 >>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
 
 class NotesListScreen extends StatefulWidget {

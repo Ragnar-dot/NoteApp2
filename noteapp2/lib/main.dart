@@ -5,11 +5,7 @@ import 'models/note.dart';
 import 'providers/note_provider.dart';
 import 'providers/theme_provider.dart';
 import 'providers/locale_provider.dart';
-import 'screens/notes_list_screen.dart';
-import 'screens/settings_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 <<<<<<< HEAD

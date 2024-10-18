@@ -4,14 +4,13 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../providers/note_provider.dart';
 import '../models/note.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timezone/timezone.dart' as tz;
 <<<<<<< HEAD
 import '../main.dart'; // Importiere main.dart für die Benachrichtigungsinstanz
 import 'package:hive/hive.dart';
 =======
-import '../main.dart'; // Import main.dart für die Benachrichtigungsinstanz
+// Import main.dart für die Benachrichtigungsinstanz
 import 'package:permission_handler/permission_handler.dart'; // <-- Ensure this import is here
 
 >>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
