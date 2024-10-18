@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.noteapp2"
+    namespace = "com.noteapp2"
     compileSdk = 33 // Ersetze durch die gewünschte SDK-Version
     ndkVersion = "21.3.6528147" // Falls benötigt, ansonsten entfernen
 
@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.noteapp2"
+        applicationId = "com.noteapp2"
         minSdkVersion = 16
         targetSdkVersion = 33
         versionCode = 1
