@@ -7,8 +7,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timezone/timezone.dart' as tz;
+<<<<<<< HEAD
 import '../main.dart'; // Importiere main.dart für die Benachrichtigungsinstanz
 import 'package:hive/hive.dart';
+=======
+import '../main.dart'; // Import main.dart für die Benachrichtigungsinstanz
+import 'package:permission_handler/permission_handler.dart'; // <-- Ensure this import is here
+
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
 
 class NoteEditScreen extends StatefulWidget {
   final Note? note;
@@ -54,11 +60,14 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
 
   Future<void> _scheduleNotification(Note note) async {
     if (_selectedReminderDate != null) {
-      final scheduledNotificationDateTime = tz.TZDateTime.from(
-        _selectedReminderDate!,
-        tz.local,
-      );
+      // Überprüfen Sie, ob die Berechtigung SCHEDULE_EXACT_ALARM erteilt wurde
+      if (await Permission.scheduleExactAlarm.isGranted) {
+        final scheduledNotificationDateTime = tz.TZDateTime.from(
+          _selectedReminderDate!,
+          tz.local,
+        );
 
+<<<<<<< HEAD
       await flutterLocalNotificationsPlugin.zonedSchedule(
         note.key.hashCode,
         'Erinnerung: ${note.title}',
@@ -82,8 +91,63 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
       );
     } else {
       // Lösche die geplante Benachrichtigung, wenn keine Erinnerung gesetzt ist
+=======
+        await flutterLocalNotificationsPlugin.zonedSchedule(
+          note.key.hashCode,
+          'Reminder: ${note.title}',
+          note.content,
+          scheduledNotificationDateTime,
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              'notes_channel_id',
+              'Notes Channel',
+              channelDescription: 'Channel for note reminders',
+              importance: Importance.max,
+              priority: Priority.high,
+              ticker: 'ticker',
+            ),
+            iOS: DarwinNotificationDetails(),
+          ),
+          androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime,
+          matchDateTimeComponents: DateTimeComponents.dateAndTime,
+        );
+      } else {
+        // Wenn die Berechtigung nicht erteilt wurde, fordern Sie sie an oder leiten Sie den Benutzer zu den Einstellungen
+        await _requestExactAlarmPermission();
+      }
+    } else {
+      // Löschen Sie die geplante Benachrichtigung, wenn keine Erinnerung gesetzt ist
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
       await flutterLocalNotificationsPlugin.cancel(note.key.hashCode);
     }
+  }
+
+  Future<void> _requestExactAlarmPermission() async {
+    final locale = AppLocalizations.of(context)!;
+    // Zeigen Sie einen Dialog an, um den Benutzer zu informieren
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(locale.permissionRequired),
+        content: Text(locale.exactAlarmPermissionExplanation),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(locale.cancel),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              // Öffnen Sie die App-Einstellungen, damit der Benutzer die Berechtigung erteilen kann
+              await openAppSettings();
+            },
+            child: Text(locale.openSettings),
+          ),
+        ],
+      ),
+    );
   }
 
   void _listen() async {
@@ -115,7 +179,11 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
     DateTime now = DateTime.now();
     DateTime initialDate = _selectedReminderDate ?? now;
 
+<<<<<<< HEAD
     // Stelle sicher, dass initialDate nicht vor jetzt liegt
+=======
+    // Stellen Sie sicher, dass initialDate nicht vor jetzt liegt
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
     if (initialDate.isBefore(now)) {
       initialDate = now;
     }
@@ -153,18 +221,35 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
     setState(() {
       _selectedReminderDate = null;
     });
+<<<<<<< HEAD
     // Lösche die geplante Benachrichtigung, falls die Notiz existiert
     if (_note != null) {
       await flutterLocalNotificationsPlugin.cancel(_note!.key.hashCode);
+=======
+    // Löschen Sie die geplante Benachrichtigung, falls die Notiz existiert
+    if (widget.note != null) {
+      await flutterLocalNotificationsPlugin.cancel(widget.note!.key.hashCode);
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
     }
   }
 
   void _saveNote() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+<<<<<<< HEAD
       final noteProvider = Provider.of<NoteProvider>(context, listen: false);
       if (_note == null) {
         // Erstelle eine neue Notiz
+=======
+      final noteProvider =
+          Provider.of<NoteProvider>(context, listen: false);
+
+      // Fordern Sie die erforderlichen Berechtigungen an
+      await _requestPermissions();
+
+      if (widget.note == null) {
+        // Erstellen Sie eine neue Notiz
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
         final newNote = Note(
           title: _title,
           content: _contentController.text,
@@ -174,6 +259,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
         noteProvider.addNote(newNote);
         await _scheduleNotification(newNote);
       } else {
+<<<<<<< HEAD
         // Aktualisiere bestehende Notiz
         _note!.title = _title;
         _note!.content = _contentController.text;
@@ -181,8 +267,30 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
         await _note!.save();
         noteProvider.updateNote(_note!);
         await _scheduleNotification(_note!);
+=======
+        // Aktualisieren Sie die bestehende Notiz
+        widget.note!.title = _title;
+        widget.note!.content = _contentController.text;
+        widget.note!.reminderDate = _selectedReminderDate;
+        await widget.note!.save();
+        noteProvider.updateNote(widget.note!);
+        await _scheduleNotification(widget.note!);
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
       }
       Navigator.pop(context);
+    }
+  }
+
+  Future<void> _requestPermissions() async {
+    // Fordern Sie die Benachrichtigungsberechtigung an (für Android 13+)
+    if (await Permission.notification.isDenied) {
+      await Permission.notification.request();
+    }
+
+    // Fordern Sie die Berechtigung für genaue Alarme an (für Android 12+)
+    if (await Permission.scheduleExactAlarm.isDenied ||
+        await Permission.scheduleExactAlarm.isPermanentlyDenied) {
+      await _requestExactAlarmPermission();
     }
   }
 
@@ -198,6 +306,7 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
             icon: Icon(Icons.alarm),
             color: Colors.red,
             iconSize: 40,
+            color: Colors.red,
             padding: EdgeInsets.only(right: 19.0),
             onPressed: _pickReminderDate,
             tooltip: locale.pickReminder,
@@ -211,8 +320,13 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
           ),
           IconButton(
             icon: Icon(Icons.save_as),
+<<<<<<< HEAD
             color: Colors.green,
             iconSize: 50,
+=======
+            iconSize: 50,
+            color: Colors.green,
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
             onPressed: _saveNote,
             tooltip: locale.save,
           ),
@@ -255,12 +369,27 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
                   padding: const EdgeInsets.only(top: 12.0),
                   child: Column(
                     children: [
+<<<<<<< HEAD
                       Text(
                         '${locale.reminderSet} ${DateFormat('dd.MM.yyyy – HH:mm').format(_selectedReminderDate!)}',
                         style: TextStyle(color: Colors.red),
                       ),
                       IconButton(
                         icon: Icon(Icons.close, color: Colors.red),
+=======
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 10.0), // Verschiebt den Text nach rechts
+                        child: Text(
+                          '${locale.reminderSet} ${DateFormat('dd.MM.yyyy – HH:mm').format(_selectedReminderDate!)}',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 241, 3, 3)),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close,
+                            color: const Color.fromARGB(255, 241, 3, 3)),
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
                         onPressed: _removeReminder,
                         tooltip: locale.removeReminder,
                       ),
@@ -273,4 +402,8 @@ class _NoteEditScreenState extends State<NoteEditScreen> {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3

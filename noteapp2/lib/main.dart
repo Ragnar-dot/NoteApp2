@@ -12,7 +12,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+<<<<<<< HEAD
 import 'package:flutter_native_timezone/flutter_native_timezone.dart'; // Neues Paket importieren
+=======
+import 'package:permission_handler/permission_handler.dart'; // <-- Ensure this import is here
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -20,16 +24,26 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialisiere Hive
+  // Initialize Hive
   await Hive.initFlutter();
   Hive.registerAdapter(NoteAdapter());
   await Hive.openBox<Note>('notes');
 
+<<<<<<< HEAD
   // Initialisiere Zeitzonen
   await _configureLocalTimeZone();
+=======
+  // Initialize time zones
+  tz.initializeTimeZones();
+  final String timeZoneName = tz.local.name;
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
 
-  // Initialisiere Benachrichtigungen
+  // Initialize notifications
   await initializeNotifications();
+
+  // Request necessary permissions
+  await requestPermissions();
 
   runApp(MyApp());
 }
@@ -69,6 +83,23 @@ Future<void> initializeNotifications() async {
   );
 }
 
+Future<void> requestPermissions() async {
+  // Request notification permission (for Android 13+)
+  if (await Permission.notification.isDenied) {
+    await Permission.notification.request();
+  }
+
+  // Request schedule exact alarm permission (for Android 12+)
+  if (await Permission.scheduleExactAlarm.isDenied) {
+    // Since this is a special permission, you cannot request it directly.
+    // You can guide the user to settings if necessary.
+    // For now, we will print a message or handle as appropriate.
+    print('Exact alarm permission is denied. Some features may not work as expected.');
+    // Optionally, you can open app settings:
+    // await openAppSettings();
+  }
+}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -81,7 +112,11 @@ class MyApp extends StatelessWidget {
       child: Consumer2<ThemeProvider, LocaleProvider>(
         builder: (context, themeProvider, localeProvider, child) {
           return MaterialApp(
+<<<<<<< HEAD
             debugShowCheckedModeBanner: false,
+=======
+            debugShowCheckedModeBanner: false,  // Remove the debug banner
+>>>>>>> ed389eec04170d748c89213a1d7f6b292afbe2f3
             title: 'Notizen',
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),

@@ -15,8 +15,23 @@
   "light": "Hell",
   "dark": "Dunkel",
   "pickReminder": "Erinnerung auswählen",
-  "pleaseEnterTitle": "Bitte einen Titel eingeben",
-  "reminderSet": "Erinnerung gesetzt auf",
+  "pleaseEnterTitle": "Bitte geben Sie einen Titel ein",
+  "reminderSet": "Erinnerung gesetzt für",
   "speechNote": "Sprachnotiz",
-  "removeReminder": "Erinnerung entfernen"
+  "removeReminder": "Erinnerung entfernen",
+
+  "@permissionRequired": {
+    "description": "Titel für den Berechtigungsdialog"
+  },
+  "permissionRequired": "Berechtigung erforderlich",
+
+  "@exactAlarmPermissionExplanation": {
+    "description": "Erklärung für die genaue Alarmberechtigung"
+  },
+  "exactAlarmPermissionExplanation": "Um genaue Erinnerungen festzulegen, erlauben Sie der App bitte, in den Systemeinstellungen genaue Alarme zu planen.",
+
+  "@openSettings": {
+    "description": "Schaltflächentext zum Öffnen der App-Einstellungen"
+  },
+  "openSettings": "Einstellungen öffnen"
 }

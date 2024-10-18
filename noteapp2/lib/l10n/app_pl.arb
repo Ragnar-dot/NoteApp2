@@ -1,22 +1,37 @@
 {
-    "@@locale": "pl",
-    "appTitle": "Notatki",
-    "newNote": "Nowa Notatka",
-    "editNote": "Edytuj Notatkę",
-    "deleteNote": "Usuń Notatkę",
-    "noteDeleted": "Notatka usunięta",
-    "title": "Tytuł",
-    "content": "Treść",
-    "save": "Zapisz",
-    "cancel": "Anuluj",
-    "settings": "Ustawienia",
-    "language": "Język",
-    "theme": "Motyw",
-    "light": "Jasny",
-    "dark": "Ciemny",
-    "pickReminder": "Wybierz przypomnienie",
-    "pleaseEnterTitle": "Proszę wprowadzić tytuł",
-    "reminderSet": "Przypomnienie ustawione na",
-    "speechNote": "Sprachnotatka",
-    "removeReminder": "Usuń przypomnienie"
-  }
+  "@@locale": "pl",
+  "appTitle": "Notatki",
+  "newNote": "Nowa notatka",
+  "editNote": "Edytuj notatkę",
+  "deleteNote": "Usuń notatkę",
+  "noteDeleted": "Notatka usunięta",
+  "title": "Tytuł",
+  "content": "Treść",
+  "save": "Zapisz",
+  "cancel": "Anuluj",
+  "settings": "Ustawienia",
+  "language": "Język",
+  "theme": "Motyw",
+  "light": "Jasny",
+  "dark": "Ciemny",
+  "pickReminder": "Wybierz przypomnienie",
+  "pleaseEnterTitle": "Proszę wpisać tytuł",
+  "reminderSet": "Przypomnienie ustawione na",
+  "speechNote": "Notatka głosowa",
+  "removeReminder": "Usuń przypomnienie",
+
+  "@permissionRequired": {
+    "description": "Tytuł dla dialogu wymaganego uprawnienia"
+  },
+  "permissionRequired": "Wymagane uprawnienie",
+
+  "@exactAlarmPermissionExplanation": {
+    "description": "Wyjaśnienie dla uprawnienia do dokładnych alarmów"
+  },
+  "exactAlarmPermissionExplanation": "Aby ustawić dokładne przypomnienia, zezwól aplikacji na planowanie dokładnych alarmów w ustawieniach systemowych.",
+
+  "@openSettings": {
+    "description": "Tekst przycisku do otwarcia ustawień aplikacji"
+  },
+  "openSettings": "Otwórz ustawienia"
+}
